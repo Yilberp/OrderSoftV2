@@ -1,0 +1,277 @@
+{{> header}}
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<!-- Index -->
+{{> modales}}
+<article class="block md:flex md:justify-center max-w-screen-2xl my-0 mx-auto bg-white">
+    <input type="hidden" id="idReq" value="{{producto.dataValues.id}}">
+    <section class="p-4">
+        <img class="h-auto md:max-w-xl lg:max-w-3xl xl:max-w-4xl" src="/{{producto.dataValues.imagen}}" alt="producto">
+    </section>
+    <section class="p-4">
+        <div>
+            <span class="text-lg"><strong>{{producto.dataValues.nombre}}</strong></span>
+        </div>
+        <div class="flex">
+            <span class="mr-1"><strong>${{producto.dataValues.precio}}</strong></span>
+            <div class="flex items-center w-14 justify-around">
+                <span class="material-icons">
+                    star
+                </span>
+                <span class="font-bold"><strong>9.9</strong></span>
+            </div>
+        </div>
+        <label>Cantidad</label>
+        <div class="mb-2">
+            <input id="cantidadInput" form="form-carrito" name="cantidad"
+                class="pl-4 w-16 appearance-none h-8 border border-gray-100 bg-gray-50 focus:outline-none" type="number"
+                min="1" value="1">
+        </div>
+        <div class="flex flex-col justify-center gap-1">
+            {{#if user}}
+            <form action="/cliente/carrito" method="post" id="form-carrito">
+                <input type="hidden" name="id_producto" value="{{producto.dataValues.id}}">
+                <input type="hidden" name="precio" value="{{producto.dataValues.precio}}">
+                <button class="bg-red-600 rounded h-10 w-full text-white">Añadir al carrito</button>
+            </form>
+            <form action="" method="post">
+                <button class="bg-black rounded h-10 w-full text-white">Comprar</button>
+            </form>
+            {{else}}
+            <button onclick="ToggleModal('modal-id')" class="bg-red-600 rounded h-10 w-full text-white">Añadir al
+                carrito</button>
+            <button onclick="ToggleModal('modal-id')" class="bg-black rounded h-10 w-full text-white">Comprar</button>
+            {{/if}}
+
+        </div>
+
+        <div class="block">
+            <span class="text-gray-700">Adicional</span>
+            <div class="mt-2">
+                {{#each adicionales}}
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" value="{{this.dataValues.id}}" name="adicionales" form="form-carrito"
+                            class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-offset-0 focus:ring-red-200 focus:ring-opacity-50">
+                        <span class="ml-2">{{this.dataValues.nombre}}</span>
+                    </label>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+</article>
+
+<div>
+    <div class="bg-white  border border-gray-200" x-data="{selected:null}">
+        <ul class="shadow-sm">
+
+            <li class="relative border-b border-gray-200">
+
+                <button type="button" class="w-full px-8 py-6 text-left" onclick="handle()"
+                    @click="selected !== 1 ? selected = 1 : selected = null">
+                    <div class="flex items-center justify-between">
+                        <span><strong>Informacion del Producto</strong></span>
+                        <span class="flex-shrink-0">
+                            <!-- + 
+                                    <path fill="currentColor" d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <!-- -
+                                    <path fill="currentColor" d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                                <path id="mas" fill="currentColor"
+                                    d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                                <path fill="currentColor"
+                                    d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </button>
+
+                <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container1"
+                    x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                    <div class="p-6">
+                        <p>{{producto.dataValues.descripcion}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="bg-white  border border-gray-200" x-data="{selected:null}">
+        <ul class="shadow-sm">
+
+            <li class="relative border-b border-gray-200">
+
+                <button type="button" class="w-full px-8 py-6 text-left" onclick="handle1()"
+                    @click="selected !== 1 ? selected = 1 : selected = null">
+                    <div class="flex items-center justify-between">
+                        <span><strong>Comentarios</strong></span>
+                        <span class="flex-shrink-0">
+                            <!-- + 
+                                    <path fill="currentColor" d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <!-- -
+                                    <path fill="currentColor" d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                                <path id="mas1" fill="currentColor"
+                                    d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                                <path fill="currentColor"
+                                    d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </button>
+
+                <div class="relative overflow-hidden transition-all max-h-0 duration-700" style="" x-ref="container1"
+                    x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                    <div class="p-5">
+                        <h2 class="ml-3 text-xl">Opiniones sobre el producto</h2>
+                        <div class="inline-block max-w-xs w-full">
+                            <ul class="inline-block py-6 px-4 w-full">
+                                <li class="grid items-center grid-cols-3 gap-x-4">
+                                    <div class="w-full text-right">
+                                        <span>5 estrellas</span>
+                                    </div>
+                                    <div class="flex flex-col justify-center">
+                                        <div style="border-radius: 100px;"
+                                            class="inline-block h-1 mt-1 relative align-middle">
+                                            <span style="border-radius: 100px;"
+                                                class="bg-gray-300 bottom-0 block h-full left-0 absolute right-0 top-0 w-full"></span>
+                                            <span style="width: {{calificaciones.E.porcentaje}}%; border-radius: 100px;"
+                                                class="bg-red-500 bottom-0 block h-full left-0 absolute right-0 top-0"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>{{calificaciones.E.calificacion}}</span>
+                                    </div>
+                                </li>
+                                <li class="grid items-center grid-cols-3 gap-x-4">
+                                    <div class="w-full text-right">
+                                        <span>4 estrellas</span>
+                                    </div>
+                                    <div class="flex flex-col justify-center">
+                                        <div style="border-radius: 100px;"
+                                            class="inline-block h-1 mt-1 relative align-middle">
+                                            <span style="border-radius: 100px;"
+                                                class="bg-gray-300 bottom-0 block h-full left-0 absolute right-0 top-0 w-full"></span>
+                                            <span style="width: {{calificaciones.D.porcentaje}}%; border-radius: 100px;"
+                                                class="bg-red-500 bottom-0 block h-full left-0 absolute right-0 top-0"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>{{calificaciones.D.calificacion}}</span>
+                                    </div>
+                                </li>
+                                <li class="grid items-center grid-cols-3 gap-x-4">
+                                    <div class="w-full text-right">
+                                        <span>3 estrellas</span>
+                                    </div>
+                                    <div class="flex flex-col justify-center">
+                                        <div style="border-radius: 100px;"
+                                            class="inline-block h-1 mt-1 relative align-middle">
+                                            <span style="border-radius: 100px;"
+                                                class="bg-gray-300 bottom-0 block h-full left-0 absolute right-0 top-0 w-full"></span>
+                                            <span style="width: {{calificaciones.C.porcentaje}}%; border-radius: 100px;"
+                                                class="bg-red-500 bottom-0 block h-full left-0 absolute right-0 top-0"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>{{calificaciones.C.calificacion}}</span>
+                                    </div>
+                                </li>
+                                <li class="grid items-center grid-cols-3 gap-x-4">
+                                    <div class="w-full text-right">
+                                        <span>2 estrellas</span>
+                                    </div>
+                                    <div class="flex flex-col justify-center">
+                                        <div style="border-radius: 100px;"
+                                            class="inline-block h-1 mt-1 relative align-middle">
+                                            <span style="border-radius: 100px;"
+                                                class="bg-gray-300 bottom-0 block h-full left-0 absolute right-0 top-0 w-full"></span>
+                                            <span style="width: {{calificaciones.B.porcentaje}}%; border-radius: 100px;"
+                                                class="bg-red-500 bottom-0 block h-full left-0 absolute right-0 top-0"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>{{calificaciones.B.calificacion}}</span>
+                                    </div>
+                                </li>
+                                <li class="grid items-center grid-cols-3 gap-x-4">
+                                    <div class="w-full text-right">
+                                        <span>1 estrella</span>
+                                    </div>
+                                    <div class="flex flex-col justify-center">
+                                        <div style="border-radius: 100px;"
+                                            class="inline-block h-1 mt-1 relative align-middle">
+                                            <span style="border-radius: 100px;"
+                                                class="bg-gray-300 bottom-0 block h-full left-0 absolute right-0 top-0 w-full"></span>
+                                            <span style="width: {{calificaciones.A.porcentaje}}%; border-radius: 100px;"
+                                                class="bg-red-500 bottom-0 block h-full left-0 absolute right-0 top-0"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>{{calificaciones.A.calificacion}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <div id="content"></div>
+
+                    </div>
+
+                    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                        <div class="flex-1 flex justify-between sm:hidden">
+                            <a
+                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+                                Anterior
+                            </a>
+                            <a
+                                class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+                                Siguiente
+                            </a>
+                        </div>
+                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                                    aria-label="Pagination">
+                                    <a onclick="preview()"
+                                        class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Previous</span>
+                                        <!-- Heroicon name: solid/chevron-left -->
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a onclick="next()"
+                                        class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Next</span>
+                                        <!-- Heroicon name: solid/chevron-right -->
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{{> footer}}
+<script src="/js/header.js"></script>
+<script src="/js/producto/ver-producto.js"></script>

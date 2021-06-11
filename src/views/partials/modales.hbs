@@ -1,0 +1,196 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="modal-id">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!--
+        Background overlay, show/hide based on modal state.
+  
+        Entering: "ease-out duration-300"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true" id="deactive">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <!-- This element is to trick the browser into centering the modal contents. -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <!--
+        Modal panel, show/hide based on modal state.
+  
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+        <!-- LOGIN MODAL  -->
+        <div id="contentm"
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+
+            <div class="max-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-md w-full space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto" src="/img/logoufps.png" alt="OrderSoft">
+                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                            Iniciar Sesión
+                        </h2>
+                        <p class="mt-2 text-center text-sm text-gray-600">
+                            ¿No tienes cuenta?
+                            <a onclick="ToggleModalR('modal-id','modal-id2')" href="#"
+                                class="font-medium text-blue-700 hover:text-blue-500">
+                                Regístrate
+                            </a>
+                        </p>
+                    </div>
+                    <form class="mt-8 space-y-6" method="POST" action="/login">
+                        <input type="hidden" name="remember" value="true">
+                        <div class="rounded-md shadow-sm -space-y-px">
+                            <div>
+                                <label for="email-address" class="sr-only">Email address</label>
+                                <input id="email-address" name="email" type="email" autocomplete="email" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Correo electrónico">
+                            </div>
+                            <div>
+                                <label for="password" class="sr-only">Password</label>
+                                <input id="password" name="contrasena" type="password" autocomplete="current-password"
+                                    required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Contraseña">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember_me" name="remember_me" type="checkbox"
+                                    class="h-4 w-4 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <label for="remember_me" class="ml-2 block text-sm text-gray-900">
+                                    Recuérdame
+                                </label>
+                            </div>
+
+                            <div class="text-sm">
+                                <a href="#" class="font-medium text-blue-700 hover:text-blue-500">
+                                    ¿Olvidaste la contraseña?
+                                </a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Aceptar
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" onclick="ToggleModal('modal-id')"
+                                class="relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="modal-id2">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true" id="deactive2">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <!-- This element is to trick the browser into centering the modal contents. -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <!-- REGISTER MODAL -->
+        <div id="contentm2"
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+
+            <div class="max-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-md w-full space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto" src="/img/logoufps.png" alt="OrderSoft">
+                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                            Crea tu cuenta
+                        </h2>
+                        <p class="mt-2 text-center text-sm text-gray-600">
+                            ¿Ya tienes cuenta?
+                            <a onclick="ToggleModalR('modal-id','modal-id2')" href="#"
+                                class="font-medium text-blue-700 hover:text-blue-500">
+                                Inicia sesión
+                            </a>
+                        </p>
+                    </div>
+                    <form class="mt-8 space-y-6" method="POST" action="/login/signup">
+                        <input type="hidden" name="remember" value="true">
+                        <div class="rounded-md shadow-sm -space-y-px">
+                            <div>
+                                <label for="first-name" class="sr-only">Nombres</label>
+                                <input id="nombre" name="nombres" type="text" autocomplete="given-name" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Nombres">
+                            </div>
+                            <div>
+                                <label for="last-name" class="sr-only">Apellidos</label>
+                                <input id="apellidos" name="apellidos" type="text" autocomplete="family-name" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Apellidos">
+                            </div>
+                            <div>
+                                <label for="email-address" class="sr-only">Email address</label>
+                                <input id="email-address" name="email" type="email" autocomplete="email" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Correo electrónico">
+                            </div>
+                            <div>
+                                <label for="password" class="sr-only">Password</label>
+                                <input id="password" name="contrasena" type="password" autocomplete="current-password"
+                                    required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Contraseña">
+                            </div>
+                            <div>
+                                <label for="cc" class="sr-only">Documento</label>
+                                <input id="documento" name="documento" type="number" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Documento">
+                            </div>
+                            <div>
+                                <label for="cel" class="sr-only">Celular</label>
+                                <input id="cel" name="telefono" type="number" autocomplete="tel" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Celular">
+                            </div>
+                            <div>
+                                <label for="dir" class="sr-only">Direccion</label>
+                                <input id="dir" name="direccion" type="text" autocomplete="street-address" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    placeholder="Dirección">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Registrarme
+                            </button>
+                        </div>
+                        <div>
+                            <button onclick="CloseModalR('modal-id2')"
+                                class="relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

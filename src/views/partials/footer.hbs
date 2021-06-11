@@ -1,0 +1,82 @@
+<footer class="bg-white">
+    <div class="flex flex-wrap w-full ">
+        <div class="md:flex justify-between mx-auto py-12 wf w-10/12">
+            <div class="sm:flex justify-between w-full md:w-1/2 min-w-min fc">
+                <div class="w-1/2 md:w-2/5 fcc pb-4 sm:pb-0">
+                    <p class="font-bold text-xl pb-5 uppercase">Categorias</p>
+                    <ul class="list-none">
+                        {{#each categorias}}
+                        <li class="pb-2"><a class="opacity-80 text-base transition ease-in duration-500"
+                                href="/producto/search/{{this.dataValues.id}}">{{this.dataValues.nombre}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="w-1/2 md:w-3/5 fh">
+                    <p class="font-bold text-xl pb-5 uppercase">Ayuda</p>
+                    <ul class="list-none">
+                        <li class="pb-2">
+                            <a class="opacity-80 text-base transition ease-in duration-500" href="">Preguntas
+                                frecuentes</a>
+                        </li>
+                        <li class="pb-2">
+                            <a class="opacity-80 text-base transition ease-in duration-500" href="">¿Comó
+                                comprar?</a>
+                        </li>
+                        <li class="pb-2">
+                            <a class="opacity-80 text-base transition ease-in duration-500" href="">Actualiza tus
+                                datos</a>
+                        </li>
+                        <li class="pb-2">
+                            <a class="opacity-80 text-base transition ease-in duration-500" href="">Promociones
+                                vigentes</a>
+                        </li>
+                        <li class="pb-2">
+                            <a class="opacity-80 text-base transition ease-in duration-500" href="">Contacto</a>
+                        </li>
+                    </ul>
+                    <div class="pt-8">
+                        <p class="font-bold text-xl pb-5 uppercase">Medios de Pago</p>
+                        <div class="flex items-center w-full">
+                            <img class="pr-2 w-12" src="/img/pagos/mastercard.png" alt="">
+                            <img class="pr-2 w-12" src="/img/pagos/nequi.png" alt="">
+                            <img class="pr-2 w-12" src="/img/pagos/paypal.png" alt="">
+                            <img class="pr-2 w-12" src="/img/pagos/pse.png" alt="">
+                            <img class="pr-2 w-12" src="/img/pagos/visa.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 pt-4 md:pt-0 fs">
+                <div class="fsc">
+                    <p class="font-bold text-xl pb-5 uppercase">Únete ahora</p>
+                    <div class="flex justify-center items-center bg-white rounded h-9 mb-4 w-full">
+                        <input class="outline-none border-0 focus:ring-0 resize-none h-8 w-11/12"
+                            placeholder="ejemplo@ordersoft.com" type="text" required>
+                    </div>
+                    <div class="flex items-center bg-red-600 rounded h-10 w-36 transition ease-in duration-300">
+                        <a class="flex items-center text-white h-10 justify-center w-full text-lg" href="">Enviar</a>
+                    </div>
+                    <p class="text-sm pt-4">Al suscribirte aceptas nuestas politicas de tratamiento de datos.</p>
+                </div>
+                <div class="flex items-center pt-8">
+                    <a href=""><i
+                            class="fab fa-facebook-f mr-4 text-3xl transition duration-500 ease-in-out  hover:text-red-600 transform hover:-translate-y-1 hover:scale-110"
+                            aria-hidden="true"></i></a>
+                    <a href=""><i
+                            class="fab fa-instagram mr-4 text-3xl transition duration-500 ease-in-out  hover:text-red-600 transform hover:-translate-y-1 hover:scale-110"
+                            aria-hidden="true"></i></a>
+                    <a href=""><i
+                            class="fab fa-youtube mr-4 text-3xl transition duration-500 ease-in-out  hover:text-red-600 transform hover:-translate-y-1 hover:scale-110"
+                            aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center pb-8 mx-auto w-full">
+        <p class="pb-5 text-base">© 2020 OrderSoft.</p>
+    </div>
+    <div class="flex justify-center items-center bg-black py-3 text-gray-300">
+        <p class="pr-3 opacity-50">Desarrollado por el equipo</p>
+        <a class="opacity-50" href="">ORDERSOFT</a>
+    </div>
+</footer>

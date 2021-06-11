@@ -1,0 +1,91 @@
+{{> header}}
+<!-- Index -->
+<section class="container mx-auto">
+  <article class="max-w-screen-2xl overflow-x-scroll p-8">
+    <h1 class="text-2xl font-bold">Mi carrito</h1>
+    <table class="table-auto w-full border-separate text-left border border-gray-100 border-spacing">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="td"></th>
+          <th class="td"></th>
+          <th class="td">Producto</th>
+          <th class="td">Precio</th>
+          <th class="td">Cantidad</th>
+          <th class="td">Adicionales</th>
+          <th class="td">Subtotal</th>
+          <th class="td"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each carrito}}
+        <tr>
+          <td class="td">
+            <form action="/cliente/carrito-delete" method="POST">
+              <input type="hidden" name="id" value="{{this.id}}">
+              <input type="hidden" name="id_factura" value="{{this.id_factura}}">
+              <input type="hidden" name="cantidad" value="{{this.cantidad}}">
+              <input type="hidden" name="precio" value="{{this.precio}}">
+              <button
+                class="flex items-center justify-center bg-gray-100 text-lg w-8 rounded-full border border-black cursor-pointer focus:ring-0 focus:outline-none">x</button>
+            </form>
+          </td>
+          <td class="td">
+            <img class="w-20 object-cover object-center" src="/{{this.imagen}}" alt="item">
+          </td>
+          <td class="td"><a href="/producto/{{this.id_producto}}">{{this.nombre}}</a></td>
+          <td class="td"><span>${{this.precio}}</span></td>
+          <td class="td">
+            <div class="w-36 inline-flex flex-row justify-between p-1 border border-gray-100 rounded-lg">
+              <button onclick="updateCarrito({{this.id}},{{this.id_producto}},{{this.cantidad}},{{this.precio}},false)"
+                class="text-red-500 bg-white hover:bg-red-500 hover:text-white rounded-lg w-8 h-8 transition-all duration-300 cursor-pointer focus:outline-none">-</button>
+              <div class="text-sm flex items-center">{{this.cantidad}}</div>
+              <button onclick="updateCarrito({{this.id}},{{this.id_producto}},{{this.cantidad}},{{this.precio}},true)"
+                class="text-red-500 bg-white hover:bg-red-500 hover:text-white rounded-lg w-8 h-8 transition-all duration-300 cursor-pointer focus:outline-none">+</button>
+            </div>
+          </td>
+          <td class="td"><span>${{this.adicionales}}</span></td>
+          <td class="td"><span>${{this.total}}</span></td>
+          <td class="td">
+            <form action="/cliente/precompra/{{this.id}}" method="GET">
+              <button class="bg-red-600 rounded h-10 w-full text-white">Comprar</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td class="td bg-gray-100"></td>
+          <td class="td bg-gray-100"></td>
+          <td class="td bg-gray-100"></td>
+          <td class="td bg-gray-100"></td>
+          <td class="td bg-gray-100"></td>
+          <td class="td bg-gray-100"><span>Total</span></td>
+          <td class="td"><span>${{valor_total}}</span></td>
+          <td class="td">
+            <form action="/cliente/precompra/0" method="GET">
+              <button class="bg-red-600 rounded h-10 w-full text-white">Comprar todo</button>
+            </form>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </article>
+</section>
+{{> footer}}
+<script src="/js/header.js"></script>
+<script>
+  async function updateCarrito(id, id_producto, cantidad, precio, opcion) {
+    const data = JSON.stringify({ id, id_producto, cantidad, precio, opcion });
+    const result = await fetch(
+      `${location.origin}/cliente/carrito-update`,
+      {
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((response) => location.reload());
+
+  }
+</script>

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .td {
+      @apply py-2 px-3 font-bold align-middle border-0 border-t border-gray-100;
+    }
+  }
+@layer utilities{
+  .border-spacing{
+    border-spacing: 0;
+  }
+}

@@ -1,0 +1,32 @@
+<!-- tables -->
+<link rel="stylesheet" href="/css/tables.css">
+<!--Regular Datatables CSS-->
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--Responsive Extension Datatables CSS-->
+<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+<!-- Navbar -->
+<div class="flex flex-wrap w-full items-center justify-around bg-black p-4 font-nav z-10">
+
+    <div class="flex items-center w-60 sm:w-96 lg:w-2/4 sm:mr-5">
+        <span class="text-white text-xl tracking-wider font-medium sm:mr-3"><a href="./index.html">OrderSoft</a></span>
+    </div>
+    <div class="block lg:hidden">
+        <button id='boton' class="flex items-center px-3 py-2 border rounded text-white border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+        </button>
+    </div>
+    <div id='menu' class="w-full block flex-grow lg:flex lg:items-center lg:w-2/5">
+        <ul class="lg:flex items-center lg:flex-grow w-full justify-between text-white list-none">
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/administrador/nuevo-producto">Nuevo</a></li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/administrador/categorias">Categorias</a></li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/administrador/ingredientes">Ingredientes</a></li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/administrador/productos">Productos</a></li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block">
+                <a href="/logout">Cerrar sesion</a>
+            </li>
+        </ul>
+    </div>
+</div>

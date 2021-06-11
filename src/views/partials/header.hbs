@@ -1,0 +1,76 @@
+<!-- Header -->
+<div class="flex flex-wrap w-full items-center justify-around bg-black p-4 font-nav z-10">
+
+    <div class="flex items-center justify-around w-60 sm:w-96 lg:w-2/4 sm:mr-5">
+        <span class="text-white text-xl tracking-wider font-medium sm:mr-3"><a href="/">OrderSoft</a></span>
+        <div class="flex items-center justify-around invisible sm:visible bg-white rounded h-9 w-3/4">
+            <form class="rounded border-none w-4/5"  method="GET" action="/producto/search">
+                <input class="w-full text-base border-0 focus:ring-0 h-8 outline-none placeholder-gray-500"
+                    placeholder="Burger, hot dog, pizza..." type="search" name="data" id="">
+            </form>
+            <span class="material-icons bg-white w-6 cursor-pointer">
+                search
+            </span>
+        </div>
+    </div>
+    <div class="block lg:hidden">
+        <button id='boton' class="flex items-center px-3 py-2 border rounded text-white border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+        </button>
+    </div>
+    <div id='menu' class="w-full block flex-grow lg:flex lg:items-center lg:w-2/5">
+        <ul class="lg:flex items-center lg:flex-grow w-full justify-between text-white list-none">
+            {{#if user}}
+            {{!-- <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/cliente/perfil">{{user.cliente.nombres}}</a></li> --}}
+            <li class="block mt-4 lg:mt-0 lg:inline-block">
+                    <a href="/cliente/perfil" class="flex items-center space-x-1">
+                        <div class="inline-block h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                            <img class="h-full w-full" src="/{{user.cliente.avatar}}" alt="">
+                        </div>
+                        <span>{{user.cliente.nombres}}</span>
+                    </a>
+                </li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/logout">Logout</a></li>
+            {{else}}
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><button onclick="ToggleModal('modal-id')">Login</button></li>
+            {{/if}}
+            <li class="block relative mt-4 lg:mt-0 lg:inline-block">
+                <div>
+                    <button type="button" class="inline-flex text-sm font-medium text-white focus:outline-none"
+                        id="options-menu" aria-haspopup="true" aria-expanded="true" onclick="handleClick()">
+                        Categorias
+                        <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                <ul id="dropmenu"
+                    class="z-10 absolute top-10 -left-4 bg-white rounded w-48 p-4 flex flex-col gap-2 ring-1 ring-black ring-opacity-5 invisible transition ease-out duration-100 transform opacity-0 scale-95">
+                    <!-- nav__listitemdrop -->
+                    {{#each categorias}}
+                    <li class="py-2 px-4 rounded text-gray-700 hover:bg-gray-100 hover:text-gray-900"><a
+                            href="/producto/search/{{this.dataValues.id}}">{{this.dataValues.nombre}}</a></li>
+                    {{/each}}
+                </ul>
+            </li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="">Preguntas</a></li>
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="">Contacto</a></li>
+            {{#if user}}
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a href="/cliente/carrito"><span class="material-icons">
+                        shopping_cart
+                    </span></a></li>
+            {{else}}
+            <li class="block mt-4 lg:mt-0 lg:inline-block"><a onclick="ToggleModal('modal-id')"><span class="material-icons">
+                        shopping_cart
+                    </span></a></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+<script src="/js/header.js"></script>

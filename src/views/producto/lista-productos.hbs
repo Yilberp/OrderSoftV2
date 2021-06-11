@@ -1,0 +1,162 @@
+{{> header}}
+{{> modales}}
+<!-- Section aside/productos -->
+<style>
+    input[type=range]::-webkit-slider-thumb {
+        pointer-events: all;
+        width: 24px;
+        height: 24px;
+        -webkit-appearance: none;
+
+    }
+</style>
+<section class="block sm:flex max-w-screen-2xl my-0 mx-auto bg-white">
+    <aside class="w-60 sm:w-72">
+        <section class="pt-5 px-5 pb-6">
+            <span class="flex items-baseline pb-5 border-solid border-b-2 border-gray-300">
+                <h2 class="my-0 text-2xl font-normal leading-3">Filtrar por</h2>
+            </span>
+            <ul class="p-0 m-0 list-none">
+                <li class="py-5 px-0 border-solid border-b-2 border-gray-300">
+                    <button
+                        class="flex justify-between items-center w-full p-0  text-base leading-7 cursor-pointer bg-none border-0 focus:outline-none"
+                        onclick="handleOption()">
+                        <span class="mr-3 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span>Categorias</span>
+                        </span>
+                        <span class="flex-shrink-0">
+                            <!-- + 
+                                    <path fill="currentColor" d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <!-- -
+                                    <path fill="currentColor" d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                                <path id="mas" fill="currentColor"
+                                    d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                                <path fill="currentColor"
+                                    d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div id="ocultar1" class="h-0 overflow-hidden">
+                        <div id="ocultar2" class="hidden">
+                            <div id="contenido"
+                                class="mt-4 invisible transition-all ease-in-out duration-200 transform opacity-0 scale-95">
+                                <ul>
+                                    {{#each categorias}}
+                                    <li class="mb-2"><a href="/producto/search/{{this.dataValues.id}}">{{this.dataValues.nombre}}</a></li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="py-5 px-0 border-solid border-b-2 border-gray-300">
+                    <button
+                        class="flex justify-between items-center w-full p-0  text-base leading-7 cursor-pointer bg-none border-0 focus:outline-none"
+                        onclick="handleOption2()">
+                        <span class="mr-3 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span>Precio</span>
+                        </span>
+                        <span class="flex-shrink-0">
+                            <!-- + 
+                                    <path fill="currentColor" d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <!-- -
+                                    <path fill="currentColor" d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z"></path>
+                                    -->
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                                <path id="mas1" fill="currentColor"
+                                    d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                                <path fill="currentColor"
+                                    d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div id="ocultar3" class="h-0 overflow-hidden">
+                        <div id="ocultar4" class="hidden">
+                            <div id="contenido1"
+                                class="mt-4 invisible transition-all ease-in-out duration-200 transform opacity-0 scale-95">
+                                <div x-data="range()" x-init="mintrigger(); maxtrigger()"
+                                    class="relative max-w-xl w-full">
+                                    <div>
+                                        <input type="range" step="100" x-bind:min="min" x-bind:max="max"
+                                            x-on:input="mintrigger" x-model="minprice"
+                                            class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+                                        <input type="range" step="100" x-bind:min="min" x-bind:max="max"
+                                            x-on:input="maxtrigger" x-model="maxprice"
+                                            class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+                                        <div class="relative z-10 h-2">
+
+                                            <div
+                                                class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200">
+                                            </div>
+
+                                            <div class="absolute z-20 top-0 bottom-0 rounded-md bg-gray-500"
+                                                x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
+
+                                            <div class="absolute z-30 w-6 h-6 top-0 left-0 bg-gray-500 rounded-full -mt-2"
+                                                x-bind:style="'left: '+minthumb+'%'"></div>
+
+                                            <div class="absolute z-30 w-6 h-6 top-0 right-0 bg-gray-500 rounded-full -mt-2"
+                                                x-bind:style="'right: '+maxthumb+'%'"></div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="flex items-center justify-between pt-5 space-x-4 text-sm text-gray-700">
+                                        <div>
+                                            <input type="text" maxlength="5" x-on:input.debounce="mintrigger"
+                                                x-model="minprice" wire:model.debounce.300="minPrice"
+                                                class="w-24 px-3 py-2 text-center border border-gray-200 rounded-lg bg-gray-50 focus:border-red-400 focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <input type="text" maxlength="5" x-on:input.debounce.300="maxtrigger"
+                                                x-model="maxprice" wire:model.debounce="maxPrice"
+                                                class="w-24 px-3 py-2 text-center border border-gray-200 rounded-lg bg-gray-50 focus:border-red-400 focus:outline-none">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <section>
+        <div class="p-3">
+            <ul class="flex flex-wrap">
+                {{#each productos}}
+                <li class="h-auto w-64 m-2">
+                    <div class="flex flex-col justify-center items-center">
+                        <img class="h-40 object-center object-cover rounded w-60 bg-purple-200"
+                            src="/{{this.dataValues.imagen}}" alt="burger">
+                        <span><strong>{{this.dataValues.nombre}}</strong></span>
+                        <span><strong>${{this.dataValues.precio}}</strong></span>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                        <button class="bg-red-600 rounded h-10 w-11/12 text-white"><a
+                                href="/producto/{{this.dataValues.id}}">Ver
+                                producto</a></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </section>
+</section>
+
+{{> footer}}
+<script src="/js/header.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="/js/producto/lista-productos.js"></script>

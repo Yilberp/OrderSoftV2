@@ -1,0 +1,220 @@
+{{> header}}
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+<section class="w-full lg:flex">
+    <div class="pt-14 pb-5 px-6 relative w-full lg:w-3/4">
+        <div class="mb-8">
+            <h1 class="text-2xl font-semibold">Direccion de envio</h1>
+        </div>
+        <div class="table w-full py-4 px-8 rounded bg-gray-200">
+            <div class="table-row">
+                <div class="table-cell pr-6 align-top w-12">
+                    <div class="rounded-full bg-white w-12 h-12">
+                        <svg viewBox="0 0 48 48">
+                            <path
+                                d="M24.53 35.03l-.531.53-.53-.53c-5.125-5.127-7.716-9.795-7.716-14.034a8.246 8.246 0 1 1 16.492 0c0 4.24-2.591 8.907-7.716 14.034zm-7.277-14.034c0 3.627 2.231 7.781 6.746 12.435 4.515-4.654 6.746-8.808 6.746-12.435a6.746 6.746 0 0 0-13.492 0zM24 24.76a3.755 3.755 0 1 1 0-7.51 3.755 3.755 0 0 1 0 7.51zm0-1.5a2.255 2.255 0 1 0 0-4.51 2.255 2.255 0 0 0 0 4.51z"
+                                fill="#3483FA" fill-rule="nonzero"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="table-cell">
+                    <div class="table w-full">
+                        <div class="table-cell">
+                            <h3 class="text-gray-800">Calle 20N #04-87</h3>
+                            <span class="text-gray-600">Prados del Norte</span>
+                        </div>
+                        <div class="table-row align-middle lg:table-cell lg:text-right">
+                            <button type="button" onclick="openModal()"
+                                class="bg-transparent text-sm text-blue-500 border-0 focus:outline-none cursor-pointer">Modificar
+                                ubicacion</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rounded bg-white shadow mt-3">
+            <div class="p-6">
+                <div class="text-left font-semibold align-middle w-full">
+                    Tiempo estimado de entrega 30 minutos
+                </div>
+            </div>
+            <!-- Lista de productos -->
+            {{#each productos}}
+            <div class="p-6 flex items-center border-t border-gray-200">
+                <div class="w-1/4 sm:flex sm:justify-center">
+                    <img class="w-14 h-14 rounded-full object-cover object-center"
+                        src="/{{this.dataValues.producto.dataValues.imagen}}" alt="">
+                </div>
+                <div class="w-3/4">
+                    <h3 class="font-semibold">{{this.dataValues.producto.dataValues.nombre}}</h3>
+                    <h4 class="text-gray-700">Cantidad: {{this.dataValues.cantidad}}</h4>
+                    <span class="text-gray-700">$ {{this.dataValues.producto.dataValues.precio}} c/u</span>
+                    <input type="hidden" name="productos" form="pago-form"
+                        value="{{this.dataValues.producto.dataValues.nombre}} $ {{this.dataValues.producto.dataValues.precio}} c/u">
+                    <input type="hidden" name="cantidades" form="pago-form"
+                        value="Cantidad: {{this.dataValues.cantidad}}">
+                    <input type="hidden" name="stocks" form="pago-form" value="{{this.dataValues.cantidad}}">
+                    <input type="hidden" name="id_productos" form="pago-form" value="{{this.dataValues.id_producto}}">
+                    <input type="hidden" name="id_facturas" form="pago-form" value="{{this.dataValues.id_factura}}">
+                    {{#if this.dataValues.adicionales}}
+                    <div class="bg-white  border border-gray-200" x-data="{selected:null}">
+                        <ul class="shadow-sm">
+                            <li class="relative border-b border-gray-200">
+                                <button type="button" class="w-full px-8 py-6 text-left" onclick="handle()"
+                                    @click="selected !== 1 ? selected = 1 : selected = null">
+                                    <div class="flex items-center justify-between">
+                                        <span><strong>Adicionales</strong></span>
+                                        <span class="flex-shrink-0">
+                                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
+                                                <path id="mas" fill="currentColor"
+                                                    d="M12.159 7.2h-3.36v-3.36c0-0.442-0.358-0.48-0.8-0.48s-0.8 0.038-0.8 0.48v3.36h-3.359c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h3.359v3.36c0 0.442 0.358 0.48 0.8 0.48s0.8-0.038 0.8-0.48v-3.36h3.36c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                                </path>
+                                                <path fill="currentColor"
+                                                    d="M12.159 7.2h-8.319c-0.442 0-0.48 0.358-0.48 0.8s0.038 0.8 0.48 0.8h8.319c0.442 0 0.481-0.358 0.481-0.8s-0.038-0.8-0.481-0.8z">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </button>
+                                <div class="relative overflow-hidden transition-all max-h-0 duration-700" style=""
+                                    x-ref="container1"
+                                    x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                                    <div class="p-6">
+                                        <ul>
+                                            {{#each this.dataValues.adicionales}}
+                                            <li><strong>{{this.dataValues.ingrediente.dataValues.nombre}}:</strong><span
+                                                    class="text-gray-700">
+                                                    ${{this.dataValues.ingrediente.dataValues.precio}} c/u</span></li>
+                                            <input type="hidden" name="adicionales" form="pago-form"
+                                                value="{{this.dataValues.id_factura_producto}},{{this.dataValues.ingrediente.dataValues.nombre}} ${{this.dataValues.ingrediente.dataValues.precio}} c/u">
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {{else}}
+                    <input type="hidden" name="adicionales" form="pago-form"
+                        value="{{this.dataValues.id}},SIN ADICIONALES">
+                    {{/if}}
+                    <br>
+                    <span class="text-gray-700">Total Producto: $ {{this.dataValues.factura.dataValues.total}}
+                        c/u</span>
+                    <input type="hidden" name="precios" form="pago-form"
+                        value="{{this.dataValues.factura.dataValues.total}}">
+                </div>
+            </div>
+            {{/each}}
+            <!--  -->
+        </div>
+        <div class="hidden lg:block w-full p-6 lg:px-0 text-right">
+            <form action="/cliente/compra" method="post" id="pago-form">
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_51IxwSbGF75uqNRTwyAXGSFS8YolPqm6WoabMHAuiBmm91EGd2w4BuGrSOtntxIFU0VTOdXwbuBYYGUZiWI49Jd1R00hOU7XZNJ"
+                    data-amount="{{pagoTotal}}00" data-name="OrderSoft"
+                    data-description="Software de pedidos y ventas web" data-currency="COP"
+                    data-image="https://image.freepik.com/vector-gratis/tienda-dibujos-animados-compras_18591-42797.jpg"
+                    data-locale="auto">
+                    </script>
+                <script>
+                    document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                </script>
+                <input type="hidden" name="total" value="{{pagoTotal}}">
+                <input type="hidden" name="idProductoFactura" value="{{idProductoFactura}}">
+                <button
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md 
+                    text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Continuar</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="relative px-6 w-full lg:w-1/4 lg:pt-14 lg:bg-white">
+        <section class="p-5 lg:p-0 bg-white lg:bg-transparent rounded lg:rounded-none shadow lg:shadow-none w-full">
+            <h3 class="text-lg font-semibold">Resumen de compra</h3>
+            <div class="w-full mt-1">
+                <div class="table text-gray-700 w-full py-2 border-t border-gray-300">
+                    <div class="table-row w-full">
+                        <div class="table-cell">Productos ({{numProductos}})</div>
+                        <div class="table-cell text-right">$ {{total}}</div>
+                    </div>
+                    <div class="table-row w-full">
+                        <div class="table-cell">Envio</div>
+                        <div class="table-cell text-right">$ {{envio}}</div>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-gray-300">
+                    <div class="table text-gray-700 w-full">
+                        <div class="table-row w-full">
+                            <div class="table-cell">Total</div>
+                            <div class="table-cell text-right">$ {{pagoTotal}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="w-full p-6 text-right lg:hidden">
+        <button
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Continuar</button>
+    </div>
+</section>
+
+<div id="main-modal" class="fixed z-10 inset-0 overflow-y-auto transition ease-out duration-300 opacity-0 invisible"
+    aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <!-- This element is to trick the browser into centering the modal contents. -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <div id="modal-content"
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all ease-out duration-300 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center w-full sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            ¿A que direccion quieres recibir el pedido?
+                        </h3>
+                        <div class="mt-2">
+                            <form id="form" class="text-gray-700">
+                                <label for="">Direccion</label>
+                                <div class="mt-1 flex rounded-md shadow-sm border border-gray-300 py-1">
+                                    <input type="text" class="flex-1 block w-full border-none focus:ring-0 sm:text-sm"
+                                        required>
+                                </div>
+
+                                <label for="">Barrio</label>
+                                <div class="mt-1 flex rounded-md shadow-sm border border-gray-300 py-1">
+                                    <input type="text" class="flex-1 block w-full border-none focus:ring-0 sm:text-sm"
+                                        required>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="submit" form="form"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Guardar
+                </button>
+                <button type="button" onclick="closeModal()"
+                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> footer}}
+<script src="/js/cliente/perfil.js"></script>
+<script>
+    function handle() {
+        const mas = document.querySelector("#mas");
+        mas.classList.toggle("invisible");
+    }
+
+</script>

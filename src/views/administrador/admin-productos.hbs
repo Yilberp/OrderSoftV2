@@ -1,0 +1,32 @@
+{{> administrador/header}}
+<!-- admin -->
+<section class="container flex flex-col lg:flex-row items-center justify-around my-5">
+    <div class="container w-full lg:w-11/12">
+        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <table id="users" class="stripe hover text-center"
+                style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <thead>
+                    <tr class="bg-black text-white">
+                        <th data-priority="1">id</th>
+                        <th data-priority="2">Nombre</th>
+                        <th data-priority="3">Categoria</th>
+                        <th data-priority="4">Precio</th>
+                        <th data-priority="5">Estado</th>
+                        <th data-priority="6">Accion</th>
+                        <th data-priority="7">Ingredientes</th>
+                        <th data-priority="8">Aprobar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--Datatables -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="/js/administrador/admin-productos.js"></script>
+{{> footer}}

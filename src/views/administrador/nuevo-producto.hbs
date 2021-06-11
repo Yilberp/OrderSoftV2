@@ -1,0 +1,105 @@
+{{> administrador/header}}
+<section class="bg-white container mx-auto">
+    <div class="w-full flex items-center justify-center">
+        {{#if productoDB}}
+        <!-- Update Product -->
+        <form class="w-4/5 flex flex-col md:flex-row items-center justify-around" enctype="multipart/form-data"
+            action="/administrador/actualizar-producto" method="post">
+            <div class="w-full md:w-2/5 py-3 px-5">
+                <input type="hidden" name="id" value="{{productoDB.dataValues.id}}">
+                <div>
+                    <label for="Nombre">Nombre</label>
+                    <input name="nombre" type="text" autocomplete="name" value="{{productoDB.dataValues.nombre}}"
+                        required
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        placeholder="Nombre del producto">
+                </div>
+                <div>
+                    <label for="description">Descripcion</label>
+                    <textarea
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        name="descripcion" cols="50" rows="9" style="resize: none;"
+                        required>{{productoDB.dataValues.descripcion}}</textarea>
+                </div>
+                <div>
+                    <label for="Categoria">Categoria</label>
+                    <select name="id_categoria" value="{{productoDB.dataValues.id_categoria}}"
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm">
+                        {{#each categorias}}
+                        <option value="{{this.dataValues.id}}">
+                            {{this.dataValues.nombre}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label for="price">Precio</label>
+                    <input
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        name="precio" type="number" min="0" placeholder="Precio del producto"
+                        value="{{productoDB.dataValues.precio}}" required>
+                </div>
+            </div>
+            <div class="w-full md:w-2/5 py-3 px-5 flex flex-col gap-2">
+                <label for="imagen">Imagen del producto</label>
+                <img class="max-w-md max-h-96 border border-black object-cover object-center rounded" id="preview"
+                    src="/{{productoDB.dataValues.imagen}}" alt="imagen">
+                <input type="hidden" name="url_image" value="{{productoDB.dataValues.imagen}}">
+                <input type="file" name="image" id="file" accept=".jpg, .jpeg, .png, .tiff, .psd, .bmp, .eps, .svg"
+                    onchange="previewImage();">
+                <button type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Actualizar
+                    Producto</button>
+            </div>
+        </form>
+        {{else}}
+        <!-- New Product -->
+        <form class="w-4/5 flex flex-col md:flex-row items-center justify-around" enctype="multipart/form-data"
+            action="/administrador/nuevo-producto" method="post">
+            <div class="w-full md:w-2/5 py-3 px-5">
+                <div>
+                    <label for="Nombre">Nombre</label>
+                    <input name="nombre" type="text" autocomplete="name" required
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        placeholder="Nombre del producto">
+                </div>
+                <div>
+                    <label for="description">Descripcion</label>
+                    <textarea
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        name="descripcion" cols="50" rows="9" style="resize: none;" required></textarea>
+                </div>
+                <div>
+                    <label for="Categoria">Categoria</label>
+                    <select name="id_categoria"
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm">
+                        {{#each categorias}}
+                        <option value="{{this.dataValues.id}}">
+                            {{this.dataValues.nombre}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label for="price">Precio</label>
+                    <input
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                        name="precio" type="number" min="0" placeholder="Precio del producto" required>
+                </div>
+            </div>
+            <div class="w-full md:w-2/5 py-3 px-5 flex flex-col gap-2">
+                <label for="imagen">Imagen del producto</label>
+                <img class="max-w-md max-h-96 border border-black object-cover object-center rounded" id="preview"
+                    src="/img/not-image.jpg" alt="imagen">
+                <input type="file" name="image" id="file" accept=".jpg, .jpeg, .png, .tiff, .psd, .bmp, .eps, .svg"
+                    onchange="previewImage();" required>
+                <button type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Registrar
+                    producto</button>
+            </div>
+        </form>
+        {{/if}}
+    </div>
+</section>
+{{> footer}}
+<script src="/js/administrador/nuevo-producto.js"></script>
